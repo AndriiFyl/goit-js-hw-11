@@ -33,9 +33,7 @@ function onSearch(event) {
         appendMarkupImg(data);
     });
    
-    setTimeout(() => {
     refs.loadMoreBtn.classList.remove('is-hidden'); 
-  }, 1000);
 }
 
 // ф-я, которая подгружает новые картинки================== 2
@@ -51,7 +49,7 @@ function loadMore() {
 function appendMarkupImg(data) {
     totalPages = Math.ceil(data.totalHits / 40)
     
-    // console.log(`${apiService.currentpage} = ${totalPages}`);
+    console.log(`${apiService.currentpage} = ${totalPages}`);
 
     if (apiService.currentpage === totalPages) {
         refs.loadMoreBtn.classList.add('is-hidden');
