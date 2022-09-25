@@ -10,6 +10,7 @@ let totalPages = 0;
 // делаем экземпляр класса
 const apiService = new ApiService();
 
+
 const refs = getRefs();
 
 refs.loadMoreBtn.addEventListener('click', loadMore);
@@ -19,8 +20,8 @@ refs.loadMoreBtn.classList.add('is-hidden');
 // ф-я отправки формы==================================== 1
 function onSearch(event) {
     event.preventDefault();
-   
     clearMarkupImg();
+    apiService.resetPage();
     
     apiService.searchQueryInp = event.currentTarget.elements.searchQuery.value;
     if (apiService.searchQueryInp.trim() === '') {
@@ -31,8 +32,7 @@ function onSearch(event) {
        Notify.success(`Hooray! We found totalHits ${data.totalHits} images!`)
         appendMarkupImg(data);
     });
-     apiService.resetPage();
-    
+   
     setTimeout(() => {
     refs.loadMoreBtn.classList.remove('is-hidden'); 
   }, 1000);
@@ -50,6 +50,9 @@ function loadMore() {
 //  которая добавляет в дом - дерево  разметку============== 3
 function appendMarkupImg(data) {
     totalPages = Math.ceil(data.totalHits / 40)
+    
+    // console.log(`${apiService.currentpage} = ${totalPages}`);
+
     if (apiService.currentpage === totalPages) {
         refs.loadMoreBtn.classList.add('is-hidden');
           Notify.info("We're sorry, but you've reached the end of search results.");
