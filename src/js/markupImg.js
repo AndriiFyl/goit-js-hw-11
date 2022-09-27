@@ -9,8 +9,8 @@ export default function renderImgMarkup(data) {
                 downloads }) => {
             return `<div class="photo-card">
   <a class='link_large_img' href=${largeImageURL}>
-  <img src="${webformatURL}" width="320" height="200" alt="${tags}" loading="lazy" />
-  </a> 
+  <img class="picture" src="${webformatURL}" width="320" height="200" alt="${tags}" loading="lazy" />
+  
   <div class="info">
     <p class="info-item">
       <b>Likes </b>
@@ -29,6 +29,7 @@ export default function renderImgMarkup(data) {
       ${downloads}
     </p>
   </div>
+  </a> 
 </div>
         `
         })

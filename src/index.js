@@ -10,7 +10,6 @@ let totalPages = 0;
 // делаем экземпляр класса
 const apiService = new ApiService();
 
-
 const refs = getRefs();
 
 refs.loadMoreBtn.addEventListener('click', loadMore);
@@ -29,11 +28,11 @@ function onSearch(event) {
     }
     
     apiService.fetchImages().then(data => {
+      refs.loadMoreBtn.classList.remove('is-hidden'); 
        Notify.success(`Hooray! We found totalHits ${data.totalHits} images!`)
         appendMarkupImg(data);
     });
-   
-    refs.loadMoreBtn.classList.remove('is-hidden'); 
+    refs.loadMoreBtn.classList.add('is-hidden');
 }
 
 // ф-я, которая подгружает новые картинки================== 2
@@ -52,7 +51,11 @@ function appendMarkupImg(data) {
     console.log(`${apiService.currentpage} = ${totalPages}`);
 
     if (apiService.currentpage === totalPages) {
+
+        setTimeout(() => {
         refs.loadMoreBtn.classList.add('is-hidden');
+    }, 500)
+ 
           Notify.info("We're sorry, but you've reached the end of search results.");
     }
     refs.itemsGallery.insertAdjacentHTML('beforeend', renderImgMarkup(data))
