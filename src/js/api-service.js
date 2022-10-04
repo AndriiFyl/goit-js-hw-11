@@ -11,20 +11,36 @@ export default class ApiService {
         this.page = 1;
     }
     
-    fetchImages() {
-        return fetch(`${BASE_URL}?key=${API_KEY}&q=${this.searchQueryInp}& image_type=photo
-                     &orientation=horizontal&safesearch=true&per_page=40&page=${this.page}`)
-            .then(response => {
-            if (!response.ok) {
-            throw new Error(response.status);
-                }
-               return response.json() 
-            })
-            .then((data) => {
-             return data;
-         })
+    // Через THEN===============================================
+    // fetchImages() {
+    //     return fetch(`${BASE_URL}?key=${API_KEY}&q=${this.searchQueryInp}& image_type=photo
+    //                  &orientation=horizontal&safesearch=true&per_page=40&page=${this.page}`)
+    //         .then(response => {
+                
+    //             if (!response.ok) {
+    //         throw new Error(response.status);
+    //             }
+    //            return response.json() 
+    //         })
+    //         .then((data) => {
+    //          return data;
+    //      })
+    // }
+    
+
+    // // Через async await===================================
+        async fetchImages() {
+           const serverRequest = await fetch(`${BASE_URL}?key=${API_KEY}&q=${this.searchQueryInp}& image_type=photo
+        &orientation=horizontal&safesearch=true&per_page=40&page=${this.page}`);
+           if (!serverRequest.ok) {
+               throw new Error(serverRequest.status);           
+           }
+        const data = await serverRequest.json();
+        return data;
     }
     
+
+
     // ф-я, при которой любая текущая страница будет сбрасываться на 1
     resetPage() {
         this.page = 1;
